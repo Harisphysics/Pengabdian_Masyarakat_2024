@@ -1,5 +1,4 @@
 import streamlit as st
-import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from streamlit_gsheets import GSheetsConnection
@@ -23,7 +22,7 @@ bme680 = load_data()
 # # Display the dataframe in Streamlit
 # st.write("Data from Google Sheets:", bme680)
 
-bme680['DateTime'] = pd.to_datetime(bme680['Date'] + ' ' + bme680['Time'])
+bme680["DateTime"] = bme680["Date"] + "" + bme680["Time"]
 bme680.drop(columns=['Date', 'Time'], inplace=True)
 
 current_values = bme680.iloc[0]  # Assuming the most recent data is at the top
