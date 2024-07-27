@@ -72,8 +72,8 @@ columns[2].markdown(create_styled_markdown("tekanan (mbar)", current_values['Pre
 columns[3].markdown(create_styled_markdown("Gas (kOhm)", current_values['Gas Resistance (kOhm)']), unsafe_allow_html=True)
 
 if st.button('Refresh Data'):
-    bme680 = load_data()
-    st.session_state.reload_data = False
+    st.cache_data.clear()
+    st.rerun()
 
 # Create a subplot for each parameter
 fig = make_subplots(
