@@ -1,4 +1,2 @@
-pandas
-plotly
-gspread
-oauth2client
+setuptools==69.5.1
+wheel==0.43.0
