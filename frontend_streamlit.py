@@ -78,7 +78,7 @@ if st.button('Refresh Data'):
 # Create a subplot for each parameter
 fig = make_subplots(
     rows=2, cols=2, 
-    subplot_titles=('Temperature (C)', 'Humidity (%)', 'Pressure (mbar)', 'Gas Resistance (kOhm)'),
+    subplot_titles=('Temperature (C)', 'Humidity (%)', 'Pressure (mbar)', 'Gas (kOhm)'),
     shared_xaxes=True
 )
 
@@ -108,8 +108,6 @@ fig.update_layout(
     height=800,
     title_text="Parameter Monitoring Green House",
     showlegend=False,
-    xaxis_title='Waktu',
-    xaxis2_title='Waktu',
     xaxis3_title='Waktu',
     xaxis4_title='Waktu',
 )
