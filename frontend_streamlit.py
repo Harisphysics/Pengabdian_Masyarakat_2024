@@ -1,32 +1,42 @@
 import streamlit as st
 import plotly.graph_objects as go
-import pandas as pd
 from plotly.subplots import make_subplots
-from streamlit_gsheets import GSheetsConnection 
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 
-# Create a connection to Google Sheets
-conn = st.connection("gsheets", type=GSheetsConnection)
+# Google Sheets authentication
+scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+#creds = ServiceAccountCredentials.from_json_keyfile_name("credentials\monitoring-p2m-b170bdcce119.json", scope)
+creds = ServiceAccountCredentials.from_json_keyfile_dict(st.secrets.connections)
+client = gspread.authorize(creds)
 
 # Read the first 100 rows from the worksheet
 @st.cache_data(ttl=60)
 def load_data():
-    return conn.read(
-        worksheet="Sheet1",
-        ttl="10m",
-        nrows=500  # Add this parameter to read the first 100 rows
-    )
+    sheet = client.open("BME680 Monitoring P2M").worksheet("Sheet1")
+    data = sheet.get_all_records()
+    return data
 
 st.markdown("<h1 style='text-align: center; color: green;'>Green House Monitoring Desa Majalaya, Cianjur</h1>", unsafe_allow_html=True)
 
 # Read data
 bme680 = load_data()
-# # Display the dataframe in Streamlit
-# st.write("Data from Google Sheets:", bme680)
 
-bme680['DateTime'] = pd.to_datetime(bme680['Date'] + ' ' + bme680['Time'])
-bme680.drop(columns=['Date', 'Time'], inplace=True)
+# Convert data into a list of dictionaries
+data_list = bme680
 
-current_values = bme680.iloc[0]  # Assuming the most recent data is at the top
+# Extracting specific data
+dates = [row['Date'] for row in data_list]
+times = [row['Time'] for row in data_list]
+temperatures = [row['Temperature (C)'] for row in data_list]
+humidity = [row['Humidity (%)'] for row in data_list]
+pressure = [row['Pressure (mbar)'] for row in data_list]
+gas_resistance = [row['Gas Resistance (kOhm)'] for row in data_list]
+
+# Combine Date and Time into DateTime
+datetimes = [f"{date} {time}" for date, time in zip(dates, times)]
+
+current_values = data_list[0]  # Assuming the most recent data is at the top
 st.write("----")
 st.write("### Kondisi Green House Saat Ini")
 columns = st.columns(4)
@@ -73,22 +83,22 @@ fig = make_subplots(
 
 # Add a trace for each parameter
 fig.add_trace(
-    go.Scatter(x=bme680['DateTime'], y=bme680['Temperature (C)'], name='Suhu (C)', mode='lines', line=dict(color='red')),
+    go.Scatter(x=datetimes, y=temperatures, name='Suhu (C)', mode='lines', line=dict(color='red')),
     row=1, col=1
 )
 
 fig.add_trace(
-    go.Scatter(x=bme680['DateTime'], y=bme680['Humidity (%)'], name='Kelembaban (%)', mode='lines', line=dict(color='green')),
+    go.Scatter(x=datetimes, y=humidity, name='Kelembaban (%)', mode='lines', line=dict(color='green')),
     row=1, col=2
 )
 
 fig.add_trace(
-    go.Scatter(x=bme680['DateTime'], y=bme680['Pressure (mbar)'], name='Tekanan (mbar)', mode='lines', line=dict(color='blue')),
+    go.Scatter(x=datetimes, y=pressure, name='Tekanan (mbar)', mode='lines', line=dict(color='blue')),
     row=2, col=1
 )
 
 fig.add_trace(
-    go.Scatter(x=bme680['DateTime'], y=bme680['Gas Resistance (kOhm)'], name='Gas Resistance (kOhm)', mode='lines', line=dict(color='yellow')),
+    go.Scatter(x=datetimes, y=gas_resistance, name='Gas Resistance (kOhm)', mode='lines', line=dict(color='yellow')),
     row=2, col=2
 )
 
