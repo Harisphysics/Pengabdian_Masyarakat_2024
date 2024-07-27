@@ -79,7 +79,7 @@ if st.button('Refresh Data'):
 fig = make_subplots(
     rows=2, cols=2, 
     subplot_titles=('Temperature (C)', 'Humidity (%)', 'Pressure (mbar)', 'Gas Resistance (kOhm)'),
-    shared_xaxes=False
+    shared_xaxes=True
 )
 
 # Add a trace for each parameter
@@ -99,7 +99,7 @@ fig.add_trace(
 )
 
 fig.add_trace(
-    go.Scatter(x=datetimes, y=gas_resistance, name='Gas Resistance (kOhm)', mode='lines', line=dict(color='yellow')),
+    go.Scatter(x=datetimes, y=gas_resistance, name='Gas (kOhm)', mode='lines', line=dict(color='yellow')),
     row=2, col=2
 )
 
