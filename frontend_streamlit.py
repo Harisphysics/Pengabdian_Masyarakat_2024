@@ -3,6 +3,7 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+from datetime import datetime
 
 # Google Sheets authentication
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
@@ -34,7 +35,7 @@ pressure = [row['Pressure (mbar)'] for row in data_list]
 gas_resistance = [row['Gas Resistance (kOhm)'] for row in data_list]
 
 # Combine Date and Time into DateTime
-datetimes = [f"{date} {time}" for date, time in zip(dates, times)]
+datetimes = [datetime.strptime(f"{date} {time}", "%Y/%m/%d %I:%M:%S %p") for date, time in zip(dates, times)]
 
 current_values = data_list[0]  # Assuming the most recent data is at the top
 st.write("----")
