@@ -1,5 +1,5 @@
 streamlit
 plotly==5.23.0
-streamlit-gsheets
+git+https://github.com/streamlit/gsheets-connection
 pandas
 gspread
