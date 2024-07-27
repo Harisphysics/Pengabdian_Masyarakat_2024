@@ -1,5 +1,5 @@
-streamlit==1.22.0
-plotly==5.12.0
-streamlit-gsheets==0.1.0
-pandas==2.0.0
-gspread==5.8.0
+streamlit
+plotly
+streamlit-gsheets
+pandas
+gspread
