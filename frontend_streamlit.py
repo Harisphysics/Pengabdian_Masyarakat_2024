@@ -109,13 +109,9 @@ fig.update_layout(
     title_text="Parameter Monitoring Green House",
     showlegend=False,
     xaxis_title='Waktu',
-    yaxis_title='Nilai',
     xaxis2_title='Waktu',
-    yaxis2_title='Nilai',
     xaxis3_title='Waktu',
-    yaxis3_title='Nilai',
     xaxis4_title='Waktu',
-    yaxis4_title='Nilai',
 )
 
 # Display the plot in Streamlit
