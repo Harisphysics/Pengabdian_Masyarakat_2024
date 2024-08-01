@@ -81,7 +81,7 @@ columns[1].markdown(create_styled_markdown("Kelembaban (%)", current_values['Hum
 columns[2].markdown(create_styled_markdown("tekanan (mbar)", current_values['Pressure (mbar)']), unsafe_allow_html=True)
 columns[3].markdown(create_styled_markdown("Gas (kOhm)", current_values['Gas Resistance (kOhm)']), unsafe_allow_html=True)
 columns[4].markdown(create_styled_markdown("Ketinggian (cm)", current_values_2['Ketinggian']), unsafe_allow_html=True)
-columns[5].markdown(create_styled_markdown("Konsentrasi (mol)", current_values_2['Konsentrasi']), unsafe_allow_html=True)
+columns[5].markdown(create_styled_markdown("Konsentrasi (ppm)", current_values_2['Konsentrasi']), unsafe_allow_html=True)
 
 if st.button('Refresh Data'):
     st.cache_data.clear()
