@@ -107,7 +107,7 @@ else:
     row_master, col_master = 2, 3
 fig = make_subplots(
     rows=row_master, cols=col_master, 
-    subplot_titles=('Temperature (C)', 'Humidity (%)', 'Pressure (mbar)', 'Gas (kOhm)', 'Ketinggian (cm)', 'Konsentrasi (mol)'),
+    subplot_titles=('Temperature (C)', 'Humidity (%)', 'Pressure (mbar)', 'Gas (kOhm)', 'Ketinggian (cm)', 'Konsentrasi (ppm)'),
     shared_xaxes=False
 )
 
@@ -137,7 +137,7 @@ fig.add_trace(
     row=row_e, col=col_e
 )
 fig.add_trace(
-    go.Scatter(x=datetimes, y=height, name='Konsentrasi (mol)', mode='lines', line=dict(color='#ffffff')),
+    go.Scatter(x=datetimes, y=height, name='Konsentrasi (ppm)', mode='lines', line=dict(color='black')),
     row=row_f, col=col_f
 )
 
