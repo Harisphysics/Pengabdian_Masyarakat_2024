@@ -137,7 +137,7 @@ fig.add_trace(
     row=row_e, col=col_e
 )
 fig.add_trace(
-    go.Scatter(x=datetimes, y=height, name='Konsentrasi (ppm)', mode='lines', line=dict(color='black')),
+    go.Scatter(x=datetimes, y=concentration, name='Konsentrasi (ppm)', mode='lines', line=dict(color='black')),
     row=row_f, col=col_f
 )
 
