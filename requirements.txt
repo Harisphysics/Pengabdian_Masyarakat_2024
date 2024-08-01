@@ -3,3 +3,4 @@ wheel==0.43.0
 plotly
 gspread
 oauth2client
+streamlit_js_eval==0.1.7
