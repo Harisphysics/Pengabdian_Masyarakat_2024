@@ -26,7 +26,7 @@ client = gspread.authorize(creds)
 @st.cache_data(ttl=60)
 def load_data(sheet):
     sheet = client.open("BME680 Monitoring P2M").worksheet(sheet)
-    data = sheet.get_all_records()
+    data = sheet.get_all_records()[:100]
     return data
 
 # header
